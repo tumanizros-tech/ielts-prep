@@ -57,7 +57,16 @@ function renderResult(){
   if(rest.length)h+=`<div class="hint">Ещё не просмотрено: ${rest.length}</div>`;
   h+=`<details><summary>Знаю (${k.length})</summary><ul class="list">${k.map(r=>li(r,'u')).join('')}</ul></details>`;
   h+=`<div><button class="link" id="reset">Сбросить все отметки</button></div>`;
+  h+=`<details class="qcard"><summary class="qlabel" style="cursor:pointer">Перенос прогресса на другое устройство или адрес</summary>
+   <div class="note">Нажми «Получить код» там, где прогресс уже есть, скопируй код, потом вставь его в поле ниже на другом адресе и нажми «Загрузить». Переносятся отметки слов, результаты заданий, ответы, черновики.</div>
+   <div class="row"><button class="btn ghost" id="xp">Получить код</button><button class="btn ghost" id="xcp" hidden>Скопировать код</button></div>
+   <textarea class="sa" id="xout" rows="3" readonly hidden></textarea>
+   <textarea class="sa" id="xin" rows="3" placeholder="Вставь сюда код прогресса"></textarea>
+   <div class="row"><button class="btn" id="xim">Загрузить код</button></div><div id="xmsg" class="qsub"></div></details>`;
   $('main').innerHTML=h;
+  $('xp').onclick=()=>{const c=btoa(unescape(encodeURIComponent(JSON.stringify(S))));const o=$('xout');o.value='IELTS1:'+c;o.hidden=false;$('xcp').hidden=false;o.select();};
+  $('xcp').onclick=()=>{const o=$('xout');o.select();try{navigator.clipboard.writeText(o.value);}catch(e){document.execCommand('copy');}$('xmsg').textContent='Скопировано.';};
+  $('xim').onclick=()=>{try{const v=$('xin').value.trim();if(!v.startsWith('IELTS1:'))throw 0;const d=JSON.parse(decodeURIComponent(escape(atob(v.slice(7)))));if(!d||typeof d!=='object')throw 0;if(!confirm('Заменить текущий прогресс на этом адресе загруженным?'))return;for(const k in d)S[k]=d[k];save();$('xmsg').textContent='Готово: прогресс загружен.';setTimeout(()=>render(),600);}catch(e){$('xmsg').textContent='Код не подошёл. Проверь, что скопирован полностью.';}};
   $('main').querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{S.marks[b.dataset.w]=b.dataset.to;save();render();});
   $('back').onclick=()=>go('cards',null);
   $('copy').onclick=async()=>{
