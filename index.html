@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IELTS">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#1f3a5f">
+<title>IELTS Vocab Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Sora:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>IELTS: слова и грамматика</h1>
+    <div class="hud" id="hud"></div>
+  </header>
+  <nav class="tabs" id="tabs" role="tablist">
+    <button role="tab" data-v="cards" aria-selected="true">Карточки</button>
+    <button role="tab" data-v="learn" aria-selected="false">Учить</button>
+    <button role="tab" data-v="gram" aria-selected="false">Грамматика</button>
+    <button role="tab" data-v="lex" aria-selected="false">Лексика</button>
+    <button role="tab" data-v="sp" aria-selected="false">Speaking</button>
+    <button role="tab" data-v="ielts" aria-selected="false">IELTS</button>
+    <button role="tab" data-v="aud" aria-selected="false">Аудио</button>
+    <button role="tab" data-v="tpl" aria-selected="false">Шаблоны</button>
+    <button role="tab" data-v="spell" aria-selected="false">Spelling</button>
+    <button role="tab" data-v="result" aria-selected="false">Итог</button>
+  </nav>
+  <div class="stats" id="stats"></div>
+  <div class="bar" id="bar" aria-hidden="true"></div>
+  <main id="main"></main>
+  <div class="foot">Нажми дважды на любое английское слово, чтобы увидеть перевод и часть речи.</div>
+</div>
+<script src="words.js"></script>
+<script src="modules.js"></script>
+<script src="examples.js"></script>
+<script src="mods_extra.js"></script>
+<script src="grammar2.js"></script>
+<script src="ex1.js"></script>
+<script src="ex2.js"></script>
+<script src="ex3.js"></script>
+<script src="ex4.js"></script>
+<script src="th1.js"></script>
+<script src="th2.js"></script>
+<script src="th3.js"></script>
+<script src="core.js"></script>
+<script src="quiz.js"></script>
+<script src="vocab-modes.js"></script>
+<script src="games.js"></script>
+<script src="irr.js"></script>
+<script src="irregular.js"></script>
+<script src="gram-ui.js"></script>
+<script src="templates.js"></script>
+<script src="tpl_data.js"></script>
+<script src="tpl2.js"></script>
+<script src="strat.js"></script>
+<script src="speakdata.js"></script>
+<script src="aicheck.js"></script>
+<script src="gen.js"></script>
+<script src="writing.js"></script>
+<script src="speak.js"></script>
+<script src="wb.js"></script>
+<script src="gloss.js"></script>
+<script src="tap.js"></script>
+<script src="lex.js"></script>
+<script src="ielts_r1.js"></script>
+<script src="ielts_r2.js"></script>
+<script src="ielts_l.js"></script>
+<script src="ielts_l2.js"></script>
+<script src="ielts_w.js"></script>
+<script src="ielts.js"></script>
+<script src="audio.js"></script>
+<script src="spell.js"></script>
+<script src="app.js"></script>
+<script>if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script>
+</body>
+</html>
