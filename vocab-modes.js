@@ -62,11 +62,13 @@ function renderResult(){
    <div class="row"><button class="btn ghost" id="xp">Получить код</button><button class="btn ghost" id="xcp" hidden>Скопировать код</button></div>
    <textarea class="sa" id="xout" rows="3" readonly hidden></textarea>
    <textarea class="sa" id="xin" rows="3" placeholder="Вставь сюда код прогресса"></textarea>
-   <div class="row"><button class="btn" id="xim">Загрузить код</button></div><div id="xmsg" class="qsub"></div></details>`;
+   <div class="row"><button class="btn" id="xim">Загрузить код</button><label class="btn ghost" style="cursor:pointer">Или из файла<input type="file" id="xf" accept=".txt,text/plain" hidden></label></div><div id="xmsg" class="qsub"></div></details>`;
   $('main').innerHTML=h;
   $('xp').onclick=()=>{const c=btoa(unescape(encodeURIComponent(JSON.stringify(S))));const o=$('xout');o.value='IELTS1:'+c;o.hidden=false;$('xcp').hidden=false;o.select();};
   $('xcp').onclick=()=>{const o=$('xout');o.select();try{navigator.clipboard.writeText(o.value);}catch(e){document.execCommand('copy');}$('xmsg').textContent='Скопировано.';};
-  $('xim').onclick=()=>{try{const v=$('xin').value.trim();if(!v.startsWith('IELTS1:'))throw 0;const d=JSON.parse(decodeURIComponent(escape(atob(v.slice(7)))));if(!d||typeof d!=='object')throw 0;if(!confirm('Заменить текущий прогресс на этом адресе загруженным?'))return;for(const k in d)S[k]=d[k];save();$('xmsg').textContent='Готово: прогресс загружен.';setTimeout(()=>render(),600);}catch(e){$('xmsg').textContent='Код не подошёл. Проверь, что скопирован полностью.';}};
+  const doImport=(v,ask)=>{try{if(!v.startsWith('IELTS1:'))throw 0;const d=JSON.parse(decodeURIComponent(escape(atob(v.slice(7)))));if(!d||typeof d!=='object')throw 0;if(ask&&!confirm('Заменить текущий прогресс на этом адресе загруженным?'))return;for(const k in d)S[k]=d[k];save();$('xmsg').textContent='Готово: прогресс загружен.';setTimeout(()=>render(),600);}catch(e){$('xmsg').textContent='Код не подошёл. Проверь, что скопирован полностью.';}};
+  $('xf').onchange=()=>{const f=$('xf').files[0];if(!f)return;const r=new FileReader();r.onload=()=>doImport(String(r.result).trim(),false);r.readAsText(f);};
+  $('xim').onclick=()=>doImport($('xin').value.trim(),true);
   $('main').querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{S.marks[b.dataset.w]=b.dataset.to;save();render();});
   $('back').onclick=()=>go('cards',null);
   $('copy').onclick=async()=>{
